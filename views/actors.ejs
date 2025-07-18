@@ -1,0 +1,16 @@
+<%- include("components/head") %>
+<body>
+    <header>
+        <h1><%= title %></h1>
+        <%- include("components/navbar") %>
+    </header>
+    <main>
+        <% actors.forEach(actor => { %>
+            <article>
+                <a href="/actor/<%= actor.id %>"><img src="<%= actor.src %>"></a>
+                <h2><%= actor.firstName %> <%= actor.lastName %></h2>
+            </article>
+        <% }) %>
+    </main>
+</body>
+</html>

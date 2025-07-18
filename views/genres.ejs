@@ -1,0 +1,16 @@
+<%- include("components/head") %>
+<body>
+    <header>
+        <h1><%= title %></h1>
+        <%- include("components/navbar") %>
+    </header>
+    <main>
+        <% genres.forEach(genre => { %>
+            <article>
+                <a href="/genre/<%= genre.id %>"><img src="<%= genre.src %>"></a>
+                <h2><%= genre.title %></h2>
+            </article>
+        <% }) %>
+    </main>
+</body>
+</html>

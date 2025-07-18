@@ -1,0 +1,19 @@
+<%- include("components/head") %>
+<body>
+    <header>
+        <h1><%= title %></h1>
+        <%- include("components/navbar") %>
+    </header>
+    <main>
+        <% movies.forEach((movie) => { %>
+            <article>
+                <a href="/movie/<%= movie.id %>"><img src="<%= movie.src %>"></a>
+                <h2><%= movie.title %></h2>
+                <p><%= movie.rating %></p>
+                <p><%= movie.price %></p>
+                <p><%= movie.quantity %></p>
+            </article>
+        <% }) %>
+    </main>
+</body>
+</html>
