@@ -9,6 +9,10 @@
             <article>
                 <a href="/genre/<%= genre.id %>"><img src="<%= genre.src %>"></a>
                 <h2><%= genre.title %></h2>
+                <div>
+                    <a href="/genre/<%= genre.id %>/edit">Edit</a>
+                    <button type="button" onclick="deleteFn('<%= genre.id %>')">Delete</button>
+                </div>
             </article>
         <% }) %>
     </main>

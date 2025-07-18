@@ -12,6 +12,10 @@
                 <p><%= movie.rating %></p>
                 <p><%= movie.price %></p>
                 <p><%= movie.quantity %></p>
+                <div>
+                    <a href="/movie/<%= movie.id %>/edit">Edit</a>
+                    <button type="button" onclick="deleteFn('<%= movie.id %>')">Delete</button>
+                </div>
             </article>
         <% }) %>
     </main>

@@ -9,6 +9,10 @@
             <article>
                 <a href="/actor/<%= actor.id %>"><img src="<%= actor.src %>"></a>
                 <h2><%= actor.firstName %> <%= actor.lastName %></h2>
+                <div>
+                    <a href="/actor/<%= actor.id %>/edit">Edit</a>
+                    <button type="button" onclick="deleteFn('<%= actor.id %>')">Delete</button>
+                </div>
             </article>
         <% }) %>
     </main>
