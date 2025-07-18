@@ -6,7 +6,7 @@ const getActors = (req, res) => {
         res.status(404).send("Could not find any actors")
         return;
     }
-    res.render("actors", { title: "Actors", actors: actors });
+    res.render("actors", { title: "Actors", actors: actors, deleteFn: db.deleteActor });
 }
 
 module.exports = {

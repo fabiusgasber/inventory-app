@@ -6,7 +6,7 @@ const getGenres = (req, res) => {
         res.status(404).send("Could not find any genres")
         return;
     }
-    res.render("genres", { title: "Genres", genres: genres });
+    res.render("genres", { title: "Genres", genres: genres, deleteFn: db.deleteGenre });
 }
 
 
