@@ -1,4 +1,14 @@
 const db = require("../db/queries");
+const { body, validationResults } = require("express-validator");
+
+const validateGenre = [
+    body("genre")
+    .trim()
+    .notEmpty()
+    .withMessage("Genre can not be empty")
+    .isAlpha()
+    .withMessage("Genre must only contain alphabet letters")
+];
 
 const getGenres = (req, res) => {
     const genres = db.getGenres();
@@ -13,11 +23,22 @@ const genresCreateGet = (req, res) => {
     res.render("createMovie", { title: "Add new genre" });
 };
 
-const genresCreatePost = (req, res) => {
-    const { genre } = req.body;
-    db.addGenre({ genre });
-    res.redirect("/genre");
-};
+const genresCreatePost = [
+    validateGenre,
+    (req, res) => {
+        const errors = validationResults(req);
+        if(!errors.isEmpty()){
+        return res.status(400).render("createGenre", {
+        title: "Create genre",
+        genre: genre,
+        errors: errors.array(),
+      });
+        }
+        const { genre } = req.body;
+        db.addGenre({ genre });
+        res.redirect("/genre");
+    }
+];
 
 
 module.exports = {
