@@ -1,4 +1,33 @@
+const { countries } = require("../db/countries");
 const db = require("../db/queries");
+const { body, validationResults } = require("express-validator");
+const countryCodes = countries.map(country => country.countryCode);
+
+const validateActor = [
+  body("firstName")
+  .trim()
+  .notEmpty()
+  .withMessage("First name can not be empty.")
+  .isAlpha()
+  .withMessage("First name must only contain alphabet letters"),
+  body("lastName")
+  .trim()
+  .notEmpty()
+  .withMessage("Last name can not be empty.")
+  .isAlpha()
+  .withMessage("Last name must only contain alphabet letters"),
+  body("birthCountry")
+  .notEmpty()
+  .withMessage("Country can not be empty.")
+  .isIn(countryCodes)
+  .withMessage("Please select a valid country"),
+  body("birthdate", "Must be a valid date.")
+    .trim()
+    .notEmpty()
+    .withMessage("Birthdate can not be empty.")
+    .isISO8601()
+    .withMessage("Please provide a valid date in the format MM-DD-YYYY")
+]
 
 const getActors = (req, res) => {
     const actors = db.getActors();
@@ -10,14 +39,25 @@ const getActors = (req, res) => {
 };
 
 const actorsCreateGet = (req, res) => {
-    res.render("createActor", { title: "Add new actor"});
+    res.render("createActor", { title: "Add new actor", countries: countries});
 };
 
-const actorsCreatePost = (req, res) => {
+const actorsCreatePost = [
+    validateActor,
+    (req, res) => {
+    const errors = validationResults(req);
+    if(!errors.isEmpty()){
+        return res.status(400).render("createActor", {
+        title: "Add new actor",
+        countries: countries,
+        errors: errors.array(),
+      });
+    }
     const { firstName, lastName, birthdate, country, src } = req.body;
     db.addActor({ firstName, lastName, birthdate, country, src });
-    res.redirect("/actor");
-};
+    res.redirect("/actor")
+    }
+];
 
 module.exports = {
     getActors,
