@@ -42,6 +42,29 @@ const actorsCreateGet = (req, res) => {
     res.render("createActor", { title: "Add new actor", countries: countries});
 };
 
+const actorsUpdateGet = (req, res) => {
+    const actor = db.findActor(req.params.id);
+    res.render("updateActor", { title: "Update actor", actor: actor, countries: countries});
+};
+
+const actorsUpdatePost = [
+    validateActor,
+    (req, res) => {
+    const errors = validationResults(req);
+    if(!errors.isEmpty()){
+        return res.status(400).render("updateActor", {
+        title: "Update actor",
+        actor: actor,
+        countries: countries,
+        errors: errors.array(),
+      });
+    }
+    const { firstName, lastName, birthdate, country, src } = req.body;
+    db.updateActor(req.params.id, { firstName, lastName, birthdate, country, src });
+    res.redirect("/");
+    }
+];
+
 const actorsCreatePost = [
     validateActor,
     (req, res) => {
@@ -63,4 +86,6 @@ module.exports = {
     getActors,
     actorsCreateGet,
     actorsCreatePost,
+    actorsUpdateGet,
+    actorsUpdatePost,
 };
