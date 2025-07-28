@@ -11,7 +11,9 @@
                 <h2><%= actor.firstName %> <%= actor.lastName %></h2>
                 <div>
                     <a href="/actor/<%= actor.id %>/edit">Edit</a>
-                    <button type="button" onclick="deleteFn('<%= actor.id %>')">Delete</button>
+                    <form method="post" action="/actor/<%= actor.id %>/delete">
+                    <button type="submit" onclick="deleteFn('<%= actor.id %>')">Delete</button>
+                    </form>
                 </div>
             </article>
         <% }) %>

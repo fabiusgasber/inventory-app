@@ -82,10 +82,16 @@ const actorsCreatePost = [
     }
 ];
 
+const actorsDeletePost = (req, res) => {
+    db.deleteActor(req.params.id);
+    res.redirect("/actor");
+}
+
 module.exports = {
     getActors,
     actorsCreateGet,
     actorsCreatePost,
     actorsUpdateGet,
     actorsUpdatePost,
+    actorsDeletePost
 };
