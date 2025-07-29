@@ -50,6 +50,7 @@ const actorsUpdateGet = (req, res) => {
 const actorsUpdatePost = [
     validateActor,
     (req, res) => {
+    const actor = db.getActor(req.params.id);
     const errors = validationResults(req);
     if(!errors.isEmpty()){
         return res.status(400).render("updateActor", {
