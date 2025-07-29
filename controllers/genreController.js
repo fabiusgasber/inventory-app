@@ -30,7 +30,6 @@ const genresCreatePost = [
         if(!errors.isEmpty()){
         return res.status(400).render("createGenre", {
         title: "Create genre",
-        genre: genre,
         errors: errors.array(),
       });
         }
@@ -41,13 +40,14 @@ const genresCreatePost = [
 ];
 
 const genresUpdateGet = (req, res) => {
-    const { genre } = db.findGenre(req.params.id);
+    const genre  = db.findGenre(req.params.id);
     res.render("updateGenre", { title: "Update genre", genre: genre });
 }
 
 const genresUpdatePost = [
     validateGenre,
     (req, res) => {
+        const genre = db.findGenre(req.params.id);
         const errors = validationResults(req);
         if(!errors.isEmpty()){
         return res.status(400).render("updateGenre", {
@@ -56,7 +56,6 @@ const genresUpdatePost = [
         errors: errors.array(),
         })
     }
-    const genre = req.body;
     db.updateGenre(req.params.id, { genre });
     res.redirect("/genre");
     }
