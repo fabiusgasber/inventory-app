@@ -4,6 +4,7 @@
         <h1><%= title %></h1>
         <%- include("components/navbar") %>
     </header>
+    <%- include("components/errors.ejs") %>
     <form method="post" action="/genre/new">
         <label for="genre">Enter genre: </label>
         <input type="text" name="genre" id="genre" value="<%= genre %>">
