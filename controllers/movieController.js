@@ -1,4 +1,45 @@
 const db = require("../db/queries");
+const { body, validationResult } = require("express-validator");
+
+const validateMovie = [
+    body("title")
+    .trim()
+    .notEmpty()
+    .withMessage("Movie title can not be empty.")
+    .isLength({ min: 1, max: 100 })
+    .withMessage("Movie title must be between 1 and 100 characters."),
+
+    body("length")
+    .notEmpty()
+    .withMessage("Movie length can not be empty.")
+    .isInt({ min: 1, max: 500 })
+    .withMessage("Movie length must be a number between 1 and 500 minutes."),
+
+    body("description")
+    .trim()
+    .notEmpty()
+    .withMessage("Movie description can not be empty.")
+    .isLength({ min: 10, max: 1000 })
+    .withMessage("Description must be between 10 and 1000 characters."),
+
+    body("price")
+    .notEmpty()
+    .withMessage("Movie price can not be empty.")
+    .isFloat({ min: 0, max: 99 })
+    .withMessage("Price must be a number between 0 and 99."),
+
+    body("rating")
+    .notEmpty()
+    .withMessage("Movie rating can not be empty.")
+    .isFloat({ min: 0, max: 10 })
+    .withMessage("Rating must be a number between 0 and 10."),
+
+    body("quantity")
+    .notEmpty()
+    .withMessage("Movie quantity can not be empty.")
+    .isInt({ min: 1, max: 99 })
+    .withMessage("Quantity must be a number between 1 and 99."),
+]
 
 const getMovies = (req, res) => {
     const movies = db.getMovies();
@@ -13,11 +54,21 @@ const moviesCreateGet = (req, res) => {
     res.render("createMovie", { title: "Add new movie"});
 };
 
-const moviesCreatePost = (req, res) => {
+const moviesCreatePost = [
+    validateMovie,
+    (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).render("createMovie", {
+            title: "Create Movie",
+            errors: errors.array(),
+        });
+    };
     const { title, length, description, price, rating, quantity } = req.body;
     db.addMovie({ title, length, description, price, rating, quantity });
     db.redirect("/movie");
-}
+    }
+];
 
 
 module.exports = {

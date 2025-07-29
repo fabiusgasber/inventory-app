@@ -4,17 +4,18 @@
         <h1><%= title %></h1>
         <%- include("components/navbar") %>
     </header>
+    <%- include("components/errors.ejs") %>
     <form method="post" action="/movie/new">
         <label for="title">Enter movie title: </label>
         <input type="text" name="title" id="title" required>
         <label for="length">Enter movie length in minutes: </label>
-        <input type="number" name="length" id="length" required>
+        <input type="number" name="length" id="length" min="1" max="999" required>
         <label for="description">Enter a movie description: </label>
-        <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31" required>
+        <textarea name="description" id="description" minlength="10" maxlength="1000" rows="5" cols="30" required></textarea>
         <label for="price">Enter a price for the movie: </label>
         <input type="number" name="price" id="price" min="1" max="99" step="any" required>
-        <label for="price">Enter the imdb rating for the movie: </label>
-        <input type="number" name="price" id="price" min="0" max="10" step="any" required>
+        <label for="rating">Enter the imdb rating for the movie: </label>
+        <input type="number" name="rating" id="rating" min="0" max="10" step="any" required>
         <label for="quantity">Enter the quantity for the movie: </label>
         <input type="number" name="quantity" id="quantity" min="0" max="99" step="any" required>
     </form>
