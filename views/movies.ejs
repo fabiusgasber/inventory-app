@@ -5,6 +5,7 @@
         <%- include("components/navbar") %>
     </header>
     <main>
+        <a href="/movie/new">Add movie</a>
         <% movies.forEach((movie) => { %>
             <article>
                 <a href="/movie/<%= movie.id %>"><img src="<%= movie.src %>"></a>
@@ -14,7 +15,9 @@
                 <p><%= movie.quantity %></p>
                 <div>
                     <a href="/movie/<%= movie.id %>/edit">Edit</a>
-                    <button type="button" onclick="deleteFn('<%= movie.id %>')">Delete</button>
+                    <form method="post" action="/movie/<%= movie.id %>/delete">
+                        <button type="submit">Delete</button>
+                    </form>
                 </div>
             </article>
         <% }) %>

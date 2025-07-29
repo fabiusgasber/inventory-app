@@ -70,9 +70,40 @@ const moviesCreatePost = [
     }
 ];
 
+const moviesUpdateGet = (req, res) => {
+    const movie = db.getMovie(req.params.id);
+    res.render("updateMovie", { title: "Update Movie", movie: movie });
+}
+
+const moviesUpdatePost = [
+    validateMovie,
+    (req, res) => {
+        const movie = db.getMovie(req.params.id);
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).render("updateMovie", {
+                title: "Update Movie",
+                errors: errors.array(),
+                movie: movie
+            });
+        };
+        const { title, length, description, price, rating, quantity } = req.body;
+        db.updateMovie(req.params.id, { title, length, description, price, rating, quantity });
+        res.redirect("/movie");
+    }
+]
+
+const moviesDeletePost = (req, res) => {
+    db.deleteMovie(req.params.id);
+    res.redirect("/movie");
+}
+
 
 module.exports = {
     getMovies,
     moviesCreateGet,
     moviesCreatePost,
+    moviesUpdateGet,
+    moviesUpdatePost,
+    moviesDeletePost
 };
