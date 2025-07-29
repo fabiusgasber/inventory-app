@@ -11,7 +11,9 @@
                 <h2><%= genre.title %></h2>
                 <div>
                     <a href="/genre/<%= genre.id %>/edit">Edit</a>
-                    <button type="button" onclick="deleteFn('<%= genre.id %>')">Delete</button>
+                    <form method="post" action="/genre/<%= genre.id %>/delete">
+                    <button type="submit" onclick="deleteFn('<%= genre.id %>')">Delete</button>
+                    </form>
                 </div>
             </article>
         <% }) %>

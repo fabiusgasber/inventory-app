@@ -20,7 +20,7 @@ const getGenres = (req, res) => {
 }
 
 const genresCreateGet = (req, res) => {
-    res.render("createMovie", { title: "Add new genre" });
+    res.render("createGenre", { title: "Add new genre" });
 };
 
 const genresCreatePost = [
@@ -40,9 +40,39 @@ const genresCreatePost = [
     }
 ];
 
+const genresUpdateGet = (req, res) => {
+    const { genre } = db.findGenre(req.params.id);
+    res.render("updateGenre", { title: "Update genre", genre: genre });
+}
+
+const genresUpdatePost = [
+    validateGenre,
+    (req, res) => {
+        const errors = validationResults(req);
+        if(!errors.isEmpty()){
+        return res.status(400).render("updateGenre", {
+        title: "Update genre",
+        genre: genre,
+        errors: errors.array(),
+        })
+    }
+    const genre = req.body;
+    db.updateGenre(req.params.id, { genre });
+    res.redirect("/genre");
+    }
+];
+
+const genresDeletePost = (req, res) => {
+    db.deleteGenre(req.params.id);
+    res.redirect("/genre");
+};
+
 
 module.exports = {
     getGenres,
     genresCreateGet,
     genresCreatePost,
+    genresUpdateGet,
+    genresUpdatePost,
+    genresDeletePost
 }
