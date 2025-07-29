@@ -42,12 +42,12 @@ const validateMovie = [
 ]
 
 const getMovies = (req, res) => {
-    const movies = db.getMovies();
+    const movies = db.fetchAllFromTable("movies");
     if(!movies){
         res.status(404).send("Could not find any movies")
         return;
     }
-    res.render("movies", { title: "Movies", movies: movies, deleteFn: db.deleteMovie });
+    res.render("movies", { title: "Movies", movies: movies });
 };
 
 const moviesCreateGet = (req, res) => {
@@ -71,14 +71,14 @@ const moviesCreatePost = [
 ];
 
 const moviesUpdateGet = (req, res) => {
-    const movie = db.getMovie(req.params.id);
+    const movie = db.fetchFromTable("movies", req.params.id);
     res.render("updateMovie", { title: "Update Movie", movie: movie });
 }
 
 const moviesUpdatePost = [
     validateMovie,
     (req, res) => {
-        const movie = db.getMovie(req.params.id);
+        const movie = db.fetchFromTable("movies", req.params.id);
         const errors = validationResult(req);
         if(!errors.isEmpty()){
             return res.status(400).render("updateMovie", {
@@ -94,7 +94,7 @@ const moviesUpdatePost = [
 ]
 
 const moviesDeletePost = (req, res) => {
-    db.deleteMovie(req.params.id);
+    db.deleteFromTable("movies", req.params.id);
     res.redirect("/movie");
 }
 

@@ -11,7 +11,7 @@ const validateGenre = [
 ];
 
 const getGenres = (req, res) => {
-    const genres = db.getGenres();
+    const genres = db.fetchAllFromTable("genres");
     if(!genres){
         res.status(404).send("Could not find any genres")
         return;
@@ -40,14 +40,14 @@ const genresCreatePost = [
 ];
 
 const genresUpdateGet = (req, res) => {
-    const genre  = db.findGenre(req.params.id);
+    const genre  = db.fetchFromTable("genre", req.params.id);
     res.render("updateGenre", { title: "Update genre", genre: genre });
 }
 
 const genresUpdatePost = [
     validateGenre,
     (req, res) => {
-        const genre = db.findGenre(req.params.id);
+        const genre = db.fetchFromTable("genre", req.params.id);
         const errors = validationResults(req);
         if(!errors.isEmpty()){
         return res.status(400).render("updateGenre", {
@@ -62,7 +62,7 @@ const genresUpdatePost = [
 ];
 
 const genresDeletePost = (req, res) => {
-    db.deleteGenre(req.params.id);
+    db.deleteFromTable("genre", req.params.id);
     res.redirect("/genre");
 };
 

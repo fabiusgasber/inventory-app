@@ -30,7 +30,7 @@ const validateActor = [
 ]
 
 const getActors = (req, res) => {
-    const actors = db.getActors();
+    const actors = db.fetchAllFromTable("actors");
     if(!actors){
         res.status(404).send("Could not find any actors")
         return;
@@ -43,14 +43,14 @@ const actorsCreateGet = (req, res) => {
 };
 
 const actorsUpdateGet = (req, res) => {
-    const actor = db.findActor(req.params.id);
+    const actor = db.fetchFromTable("actors", req.params.id);
     res.render("updateActor", { title: "Update actor", actor: actor, countries: countries});
 };
 
 const actorsUpdatePost = [
     validateActor,
     (req, res) => {
-    const actor = db.getActor(req.params.id);
+    const actor = db.fetchFromTable("actors", req.params.id);
     const errors = validationResults(req);
     if(!errors.isEmpty()){
         return res.status(400).render("updateActor", {
@@ -84,7 +84,7 @@ const actorsCreatePost = [
 ];
 
 const actorsDeletePost = (req, res) => {
-    db.deleteActor(req.params.id);
+    db.deleteFromTable("actors", req.params.id);
     res.redirect("/actor");
 }
 
