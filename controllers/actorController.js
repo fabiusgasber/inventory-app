@@ -8,13 +8,13 @@ const validateActor = [
   .trim()
   .notEmpty()
   .withMessage("First name can not be empty.")
-  .isAlpha()
+  .isAlpha("en-US", { ignore: " "})
   .withMessage("First name must only contain alphabet letters"),
   body("lastName")
   .trim()
   .notEmpty()
   .withMessage("Last name can not be empty.")
-  .isAlpha()
+  .isAlpha("en-US", { ignore: " "})
   .withMessage("Last name must only contain alphabet letters"),
   body("country")
   .isIn(countryCodes)
