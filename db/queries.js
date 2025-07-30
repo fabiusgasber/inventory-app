@@ -40,7 +40,7 @@ const addActor = async({ firstName, lastName, birthdate, country, src }) => {
 }
 
 const updateActor = async (id, { firstName, lastName, birthdate, country, src }) => {
-    await pool.query("UPDATE movies SET firstName = $2, lastName = $3, birthdate = $4, country = $5, src = $6 WHERE id = $1", [id, firstName, lastName, birthdate, country, src]);
+    await pool.query("UPDATE actors SET firstName = $2, lastName = $3, birthdate = $4, country = $5, src = $6 WHERE id = $1", [id, firstName, lastName, birthdate, country, src]);
 }
 
 const deleteFromTable = async (table, id) => {
