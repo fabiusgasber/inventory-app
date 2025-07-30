@@ -6,7 +6,7 @@
     </header>
     <main>
         <a href="/genre/new">Add genre</a>
-        <% genres.forEach(genre => { %>
+        <% genres.toSorted((a, b) => a.genre.toLowerCase().localeCompare(b.genre)).forEach(genre => { %>
             <article>
                 <a href="/genre/<%= genre.id %>"><img src="<%= genre.src %>"></a>
                 <h2><%= genre.genre %></h2>
