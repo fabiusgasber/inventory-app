@@ -6,9 +6,9 @@
             <article>
                 <a href="/movie/<%= movie.id %>"><img src="<%= movie.src %>"></a>
                 <h2><%= movie.title %></h2>
-                <p><%= movie.rating %></p>
-                <p><%= movie.price %></p>
-                <p><%= movie.quantity %></p>
+                <p><%= movie.rating %>/10</p>
+                <p><%= movie.price %>$</p>
+                <p><%= movie.quantity %> in stock</p>
                 <div>
                     <a href="/movie/<%= movie.id %>/update">Edit</a>
                 </div>
