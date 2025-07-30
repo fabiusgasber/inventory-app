@@ -1,10 +1,7 @@
 <%- include("components/head") %>
-<body>
-    <header>
-        <h1><%= title %></h1>
-        <%- include("components/navbar") %>
-    </header>
     <main>
+        <h1><%= title %></h1>
+        <a href="/movie">Back to movies</a>
         <%- include("components/errors.ejs") %>
         <form method="post" action="/movie/<%= movie.id %>/update">
         <input type="text" name="title" id="title" value="<%= movie.title %>" required>

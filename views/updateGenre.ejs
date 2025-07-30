@@ -1,8 +1,7 @@
 <%- include("components/head") %>
-<body>
   <h1><%= title %></h1>
-  <%- include("components/errors.ejs") %>
   <a href="/genre">Back to genres</a>
+  <%- include("components/errors.ejs") %>
   <form action="/genre/<%= genre.id %>/update" method="POST">
         <input type="text" value="<%= genre.genre %>" name="genre" id="genre" required>
     <button type="submit">Update genre</button>
@@ -10,5 +9,6 @@
   <form method="post" action="/genre/<%= genre.id %>/delete">
       <button type="submit">Delete</button>
     </form>
+  </main>
 </body>
 </html>

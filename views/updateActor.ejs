@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-  </head>
-<body>
+<%- include("components/head") %>
+<main>
   <h1><%= title %></h1>
   <%- include("components/errors.ejs") %>
     <a href="/actor">Back to actors</a>
@@ -21,5 +17,6 @@
       <form method="post" action="/actor/<%= actor.id %>/delete">
       <button type="submit">Delete</button>
     </form>
+</main>
 </body>
 </html>

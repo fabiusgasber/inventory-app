@@ -1,14 +1,13 @@
 <%- include("components/head") %>
-<body>
-    <header>
-        <h1><%= title %></h1>
-        <%- include("components/navbar") %>
-    </header>
+<main>
+    <h1><%= title %></h1>
+    <a href="/genre">Back to genres</a>
     <%- include("components/errors.ejs") %>
     <form method="post" action="/genre/new">
         <label for="genre">Enter genre: </label>
         <input type="text" name="genre" id="genre">
         <button type="submit">Submit genre</button>
     </form>
+</main>
 </body>
 </html>

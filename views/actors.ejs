@@ -1,10 +1,6 @@
 <%- include("components/head") %>
-<body>
-    <header>
-        <h1><%= title %></h1>
-        <%- include("components/navbar") %>
-    </header>
     <main>
+                <h1><%= title %></h1>
         <a href="/actor/new">Add actor</a>
         <% actors.toSorted((a, b) => a.lastname.toLowerCase().localeCompare(b.lastname.toLowerCase())).forEach(actor => { %>
             <article>
