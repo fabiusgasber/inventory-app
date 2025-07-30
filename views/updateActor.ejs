@@ -5,11 +5,12 @@
   </head>
 <body>
   <h1><%= title %></h1>
-  <%- include("partials/errors.ejs") %>
-  <form action="/<%= actor.id %>/edit" method="POST">
-        <input type="text" value="<%= actor.firstName %>" name="firstName" id="firstName" required>
-        <input type="text" value="<%= actor.lastName %>"  name="lastName" id="lastName" required>
-        <input type="date" value="<%= actor.birthdate %>" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31" required>
+  <%- include("components/errors.ejs") %>
+    <a href="/actor">Back to actors</a>
+  <form action="/actor/<%= actor.id %>/edit" method="POST">
+        <input type="text" value="<%= actor.firstname %>" name="firstName" id="firstName" required>
+        <input type="text" value="<%= actor.lastname %>"  name="lastName" id="lastName" required>
+        <input type="date" value="<%= new Date(actor.birthdate).toISOString().split('T')[0] %>" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31" required>
         <select name="country" id="country" required>
             <% countries.forEach(country => { %>
                 <option value="<%= country.countryCode %>" <%= actor.country === country.countryCode ? "selected" : "" %>><%= country.country %></option>
@@ -17,6 +18,5 @@
         </select>
     <button type="submit">Update User</button>
   </form>
-  <a href="/">Back to home</a>
 </body>
 </html>

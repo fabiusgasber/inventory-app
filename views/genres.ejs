@@ -5,19 +5,19 @@
         <%- include("components/navbar") %>
     </header>
     <main>
+        <a href="/genre/new">Add genre</a>
         <% genres.forEach(genre => { %>
             <article>
                 <a href="/genre/<%= genre.id %>"><img src="<%= genre.src %>"></a>
-                <h2><%= genre.title %></h2>
+                <h2><%= genre.genre %></h2>
                 <div>
-                    <a href="/genre/<%= genre.id %>/edit">Edit</a>
+                    <a href="/genre/<%= genre.id %>/update">Edit</a>
                     <form method="post" action="/genre/<%= genre.id %>/delete">
-                    <button type="submit" onclick="deleteFn('<%= genre.id %>')">Delete</button>
+                    <button type="submit">Delete</button>
                     </form>
                 </div>
             </article>
         <% }) %>
-        <a href="/genre/new">Add genre</a>
     </main>
 </body>
 </html>

@@ -1,6 +1,6 @@
 const { countries } = require("../db/countries");
 const db = require("../db/queries");
-const { body, validationResults } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 const countryCodes = countries.map(country => country.countryCode);
 
 const validateActor = [
@@ -16,9 +16,7 @@ const validateActor = [
   .withMessage("Last name can not be empty.")
   .isAlpha()
   .withMessage("Last name must only contain alphabet letters"),
-  body("birthCountry")
-  .notEmpty()
-  .withMessage("Country can not be empty.")
+  body("country")
   .isIn(countryCodes)
   .withMessage("Please select a valid country"),
   body("birthdate", "Must be a valid date.")
@@ -29,8 +27,8 @@ const validateActor = [
     .withMessage("Please provide a valid date in the format MM-DD-YYYY")
 ]
 
-const getActors = (req, res) => {
-    const actors = db.fetchAllFromTable("actors");
+const getActors = async (req, res) => {
+    const actors = await db.fetchAllFromTable("actors");
     if(!actors){
         res.status(404).send("Could not find any actors")
         return;
@@ -42,16 +40,16 @@ const actorsCreateGet = (req, res) => {
     res.render("createActor", { title: "Add new actor", countries: countries});
 };
 
-const actorsUpdateGet = (req, res) => {
-    const actor = db.fetchFromTable("actors", req.params.id);
+const actorsUpdateGet = async (req, res) => {
+    const actor = await db.fetchFromTable("actors", req.params.id);
     res.render("updateActor", { title: "Update actor", actor: actor, countries: countries});
 };
 
 const actorsUpdatePost = [
     validateActor,
-    (req, res) => {
-    const actor = db.fetchFromTable("actors", req.params.id);
-    const errors = validationResults(req);
+    async (req, res) => {
+    const actor = await db.fetchFromTable("actors", req.params.id);
+    const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).render("updateActor", {
         title: "Update actor",
@@ -61,30 +59,30 @@ const actorsUpdatePost = [
       });
     }
     const { firstName, lastName, birthdate, country, src } = req.body;
-    db.updateActor(req.params.id, { firstName, lastName, birthdate, country, src });
+    await db.updateActor(req.params.id, { firstName, lastName, birthdate, country, src });
     res.redirect("/actor");
     }
 ];
 
 const actorsCreatePost = [
     validateActor,
-    (req, res) => {
-    const errors = validationResults(req);
-    if(!errors.isEmpty()){
-        return res.status(400).render("createActor", {
-        title: "Add new actor",
-        countries: countries,
-        errors: errors.array(),
-      });
+    async (req, res) => {
+    const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).render("createActor", {
+            title: "Add new actor",
+            countries: countries,
+            errors: errors.array(),
+        });
     }
     const { firstName, lastName, birthdate, country, src } = req.body;
-    db.addActor({ firstName, lastName, birthdate, country, src });
+    await db.addActor({ firstName, lastName, birthdate, country, src });
     res.redirect("/actor")
-    }
+  }
 ];
 
-const actorsDeletePost = (req, res) => {
-    db.deleteFromTable("actors", req.params.id);
+const actorsDeletePost = async (req, res) => {
+    await db.deleteFromTable("actors", req.params.id);
     res.redirect("/actor");
 }
 

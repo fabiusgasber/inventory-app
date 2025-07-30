@@ -41,8 +41,8 @@ const validateMovie = [
     .withMessage("Quantity must be a number between 1 and 99."),
 ]
 
-const getMovies = (req, res) => {
-    const movies = db.fetchAllFromTable("movies");
+const getMovies = async (req, res) => {
+    const movies = await db.fetchAllFromTable("movies");
     if(!movies){
         res.status(404).send("Could not find any movies")
         return;
@@ -56,7 +56,7 @@ const moviesCreateGet = (req, res) => {
 
 const moviesCreatePost = [
     validateMovie,
-    (req, res) => {
+    async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).render("createMovie", {
@@ -65,20 +65,20 @@ const moviesCreatePost = [
         });
     };
     const { title, length, description, price, rating, quantity } = req.body;
-    db.addMovie({ title, length, description, price, rating, quantity });
-    db.redirect("/movie");
+    await db.addMovie({ title, length, description, price, rating, quantity });
+    res.redirect("/movie");
     }
 ];
 
-const moviesUpdateGet = (req, res) => {
-    const movie = db.fetchFromTable("movies", req.params.id);
+const moviesUpdateGet = async (req, res) => {
+    const movie = await db.fetchFromTable("movies", req.params.id);
     res.render("updateMovie", { title: "Update Movie", movie: movie });
 }
 
 const moviesUpdatePost = [
     validateMovie,
-    (req, res) => {
-        const movie = db.fetchFromTable("movies", req.params.id);
+    async (req, res) => {
+        const movie = await db.fetchFromTable("movies", req.params.id);
         const errors = validationResult(req);
         if(!errors.isEmpty()){
             return res.status(400).render("updateMovie", {
@@ -88,13 +88,13 @@ const moviesUpdatePost = [
             });
         };
         const { title, length, description, price, rating, quantity } = req.body;
-        db.updateMovie(req.params.id, { title, length, description, price, rating, quantity });
+        await db.updateMovie(req.params.id, { title, length, description, price, rating, quantity });
         res.redirect("/movie");
     }
 ]
 
-const moviesDeletePost = (req, res) => {
-    db.deleteFromTable("movies", req.params.id);
+const moviesDeletePost = async (req, res) => {
+    await db.deleteFromTable("movies", req.params.id);
     res.redirect("/movie");
 }
 

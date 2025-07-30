@@ -5,6 +5,7 @@
         <%- include("components/navbar") %>
     </header>
     <%- include("components/errors.ejs") %>
+    <a href="/movie">Back to movies</a>
     <form method="post" action="/movie/new">
         <label for="title">Enter movie title: </label>
         <input type="text" name="title" id="title" required>
@@ -18,7 +19,7 @@
         <input type="number" name="rating" id="rating" min="0" max="10" step="any" required>
         <label for="quantity">Enter the quantity for the movie: </label>
         <input type="number" name="quantity" id="quantity" min="0" max="99" step="any" required>
+        <button type="submit">Add movie</button>
     </form>
-    <a href="/movie">Back to movies</a>
 </body>
 </html>

@@ -1,11 +1,11 @@
 <%- include("components/head") %>
 <body>
   <h1><%= title %></h1>
-  <%- include("partials/errors.ejs") %>
-  <form action="/<%= actor.id %>/edit" method="POST">
-        <input type="text" value="<%= genre %>" name="genre" id="genre" required>
+  <%- include("components/errors.ejs") %>
+  <a href="/genre">Back to genres</a>
+  <form action="/genre/<%= genre.id %>/update" method="POST">
+        <input type="text" value="<%= genre.genre %>" name="genre" id="genre" required>
     <button type="submit">Update genre</button>
   </form>
-  <a href="/genre">Back to genres</a>
 </body>
 </html>
