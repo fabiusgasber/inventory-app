@@ -12,9 +12,6 @@
                 <h2><%= actor.firstname %> <%= actor.lastname %></h2>
                 <div>
                     <a href="/actor/<%= actor.id %>/edit">Edit</a>
-                    <form method="post" action="/actor/<%= actor.id %>/delete">
-                    <button type="submit">Delete</button>
-                    </form>
                 </div>
             </article>
         <% }) %>

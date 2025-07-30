@@ -12,9 +12,6 @@
                 <h2><%= genre.genre %></h2>
                 <div>
                     <a href="/genre/<%= genre.id %>/update">Edit</a>
-                    <form method="post" action="/genre/<%= genre.id %>/delete">
-                    <button type="submit">Delete</button>
-                    </form>
                 </div>
             </article>
         <% }) %>

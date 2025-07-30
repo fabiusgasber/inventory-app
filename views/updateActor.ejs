@@ -16,7 +16,10 @@
                 <option value="<%= country.countryCode %>" <%= actor.country === country.countryCode ? "selected" : "" %>><%= country.country %></option>
             <% }) %>
         </select>
-    <button type="submit">Update User</button>
+    <button type="submit">Update actor</button>
   </form>
+      <form method="post" action="/actor/<%= actor.id %>/delete">
+      <button type="submit">Delete</button>
+    </form>
 </body>
 </html>
