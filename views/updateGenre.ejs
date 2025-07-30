@@ -3,6 +3,7 @@
   <a href="/genre">Back to genres</a>
   <%- include("components/errors.ejs") %>
   <form action="/genre/<%= genre.id %>/update" method="POST">
+        <label for="genre">Genre title: </label>
         <input type="text" value="<%= genre.genre %>" name="genre" id="genre" required>
     <button type="submit">Update genre</button>
   </form>

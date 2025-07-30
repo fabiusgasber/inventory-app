@@ -4,8 +4,8 @@
     <a href="/genre">Back to genres</a>
     <%- include("components/errors.ejs") %>
     <form method="post" action="/genre/new">
-        <label for="genre">Enter genre: </label>
-        <input type="text" name="genre" id="genre">
+        <label for="genre">Genre title:</label>
+        <input type="text" name="genre" id="genre" placeholder="Enter genre title">
         <button type="submit">Submit genre</button>
     </form>
 </main>

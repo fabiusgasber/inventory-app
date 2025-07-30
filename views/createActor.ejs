@@ -4,13 +4,13 @@
     <%- include("components/errors.ejs") %>
     <a href="/actor">Back to actors</a>
     <form method="post" action="/actor/new">
-        <label for="firstName">Enter firstname: </label>
+        <label for="firstName">First name:</label>
         <input type="text" placeholder="Enter first name" name="firstName" id="firstName" required>
-        <label for="lastName">Enter lastname: </label>
+        <label for="lastName">Last name:</label>
         <input type="text" placeholder="Enter last name" name="lastName" id="lastName" required>
-        <label for="birthdate">Enter birthdate</label>
+        <label for="birthdate">Date of birth:</label>
         <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31" required>
-        <label for="country">Country: </label>
+        <label for="country">Country of birth:</label>
         <select name="country" id="country" required>
             <% countries.forEach(country => { %>
                 <option value="<%=country.countryCode %>"><%= country.country %></option>
