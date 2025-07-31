@@ -5,7 +5,7 @@
         <% genres.toSorted((a, b) => a.genre.toLowerCase().localeCompare(b.genre)).forEach(genre => { %>
             <article>
                 <a href="/genre/<%= genre.id %>"><img src="<%= genre.src %>"></a>
-                <h2><%= genre.genre %></h2>
+                <a href="/genre/<%= genre.id %>"><h2><%= genre.genre %></h2></a>
                 <div>
                     <a href="/genre/<%= genre.id %>/update">Edit</a>
                 </div>

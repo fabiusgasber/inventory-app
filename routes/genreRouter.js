@@ -8,5 +8,6 @@ genreRouter.post("/new", controller.genresCreatePost);
 genreRouter.get("/:id/update", controller.genresUpdateGet);
 genreRouter.post("/:id/update", controller.genresUpdatePost);
 genreRouter.post("/:id/delete", controller.genresDeletePost);
+genreRouter.get("/:id", controller.getGenre);
 
 module.exports = genreRouter;

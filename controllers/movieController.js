@@ -98,9 +98,15 @@ const moviesDeletePost = async (req, res) => {
     res.redirect("/movie");
 }
 
+const getMovie = async (req, res) => {
+    const movie = await db.fetchFromTable("movies", req.params.id);
+    res.render("moviePage", { movie: movie });
+};
+
 
 module.exports = {
     getMovies,
+    getMovie,
     moviesCreateGet,
     moviesCreatePost,
     moviesUpdateGet,

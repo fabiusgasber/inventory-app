@@ -67,6 +67,11 @@ const genresDeletePost = async (req, res) => {
     res.redirect("/genre");
 };
 
+const getGenre = async (req, res) => {
+    const genre = await db.fetchFromTable("genres", req.params.id);
+    res.render("genrePage", { genre });
+}
+
 
 module.exports = {
     getGenres,
@@ -74,5 +79,6 @@ module.exports = {
     genresCreatePost,
     genresUpdateGet,
     genresUpdatePost,
-    genresDeletePost
+    genresDeletePost,
+    getGenre
 }

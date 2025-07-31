@@ -3,6 +3,7 @@ const movieRouter = Router();
 const controller = require("../controllers/movieController");
 
 movieRouter.get("/", controller.getMovies);
+movieRouter.get("/:id", controller.getMovie);
 movieRouter.get("/new", controller.moviesCreateGet);
 movieRouter.post("/new", controller.moviesCreatePost);
 movieRouter.get("/:id/update", controller.moviesUpdateGet);

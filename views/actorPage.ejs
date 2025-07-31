@@ -1,0 +1,21 @@
+<%- include("components/head") %>
+    <main>
+        <a href="/actor">Back to actors</a>
+        <article>
+            <h1><%= actor.firstname %> <%= actor.lastname %></h1>
+            <img src="#">
+            <ul>
+                <li>Date of birth <%= new Date(actor.birthdate).toISOString().split("T")[0] %></li>
+                <% const country = countries.find(country => country.countryCode === actor.country); %> 
+                <li>Born in <%= country?.country || "Unknown" %> <%= country?.flag || "" %></li>
+            </ul>
+        </article>
+        <aside>
+            <h1>Related movies</h1>
+            <ul>
+            <li>Movie 1</li>
+            </ul>
+        </aside>
+    </main>
+</body>
+</html>

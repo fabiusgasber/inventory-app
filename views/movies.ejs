@@ -3,9 +3,9 @@
         <h1><%= title %></h1>
         <a href="/movie/new">Add movie</a>
         <% movies.toSorted((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())).forEach((movie) => { %>
-            <article>
+                <article>
                 <a href="/movie/<%= movie.id %>"><img src="<%= movie.src %>"></a>
-                <h2><%= movie.title %></h2>
+                <a href="/movie/<%= movie.id %>"><h2><%= movie.title %></h2></a>
                 <p><%= movie.rating %>/10</p>
                 <p><%= movie.price %>$</p>
                 <p><%= movie.quantity %> in stock</p>

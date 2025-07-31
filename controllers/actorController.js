@@ -86,11 +86,17 @@ const actorsDeletePost = async (req, res) => {
     res.redirect("/actor");
 }
 
+const getActor = async (req, res) => {
+    const actor = await db.fetchFromTable("actors", req.params.id);
+    res.render("actorPage", { actor, countries });
+}
+
 module.exports = {
     getActors,
     actorsCreateGet,
     actorsCreatePost,
     actorsUpdateGet,
     actorsUpdatePost,
-    actorsDeletePost
+    actorsDeletePost,
+    getActor
 };

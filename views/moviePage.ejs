@@ -1,0 +1,23 @@
+<%- include("components/head") %>
+    <main>
+        <a href="/movie">Back to movies</a>
+        <article>
+            <h1><%= movie.title %></h1>
+            <img src="#">
+            <ul>
+                <li>Genre</li>
+                <li><%= movie.rating %>/10</li>
+                <li><%= movie.price %>$</li>
+                <li><%= movie.description %></li>
+                <li><%= movie.quantity %> in stock</li>
+            </ul>
+        </article>
+        <aside>
+            <h1>Related actors</h1>
+            <ul>
+            <li>Actor</li>
+            </ul>
+        </aside>
+    </main>
+</body>
+</html>
