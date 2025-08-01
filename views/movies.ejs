@@ -1,19 +1,25 @@
 <%- include("components/head") %>
-    <main>
-        <h1><%= title %></h1>
+        <div class="page-title-and-action">
+        <h2><%= title %></h2>
         <a href="/movie/new">Add movie</a>
+        </div>
+        <main class="item-overview">
         <% movies.toSorted((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())).forEach((movie) => { %>
                 <article>
-                <a href="/movie/<%= movie.id %>"><img src="<%= movie.src %>"></a>
-                <a href="/movie/<%= movie.id %>"><h2><%= movie.title %></h2></a>
-                <p><%= movie.rating %>/10</p>
-                <p><%= movie.price %>$</p>
-                <p><%= movie.quantity %> in stock</p>
+                <a href="/movie/<%= movie.id %>">
+                    <img src="<%= movie.src %>">
+                    <h3><%= movie.title %></h3>
+                </a>
+                <ul>
+                    <li><%= movie.rating %>/10</li>
+                    <li><%= movie.price %>$</li>
+                    <li><%= movie.quantity %> in stock</li>
+                </ul>
                 <div>
                     <a href="/movie/<%= movie.id %>/update">Edit</a>
                 </div>
             </article>
         <% }) %>
-    </main>
+        </main>
 </body>
 </html>

@@ -1,16 +1,20 @@
 <%- include("components/head") %>
-    <main>
-        <h1><%= title %></h1>
+    <div class="page-title-and-action">
+        <h2><%= title %></h2>
         <a href="/genre/new">Add genre</a>
+    </div>
+        <main class="item-overview">
         <% genres.toSorted((a, b) => a.genre.toLowerCase().localeCompare(b.genre)).forEach(genre => { %>
             <article>
-                <a href="/genre/<%= genre.id %>"><img src="<%= genre.src %>"></a>
-                <a href="/genre/<%= genre.id %>"><h2><%= genre.genre %></h2></a>
+                <a href="/genre/<%= genre.id %>">
+                    <img src="<%= genre.src %>">
+                    <h3><%= genre.genre %></h3>
+                </a>
                 <div>
                     <a href="/genre/<%= genre.id %>/update">Edit</a>
                 </div>
             </article>
         <% }) %>
-    </main>
+        </main>
 </body>
 </html>

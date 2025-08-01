@@ -1,15 +1,19 @@
 <%- include("components/head") %>
-  <h1><%= title %></h1>
+<div class="page-title-and-action">
   <a href="/genre">Back to genres</a>
+</div>
   <%- include("components/errors.ejs") %>
+  <main>
   <form action="/genre/<%= genre.id %>/update" method="POST">
+    <div class="form-row">
         <label for="genre">Genre title: </label>
         <input type="text" value="<%= genre.genre %>" name="genre" id="genre" required>
+    </div>
     <button type="submit">Update genre</button>
   </form>
   <form method="post" action="/genre/<%= genre.id %>/delete">
       <button type="submit">Delete</button>
-    </form>
+  </form>
   </main>
 </body>
 </html>

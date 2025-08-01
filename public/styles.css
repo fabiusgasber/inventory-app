@@ -1,0 +1,97 @@
+* {
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+}
+
+:root {
+    --gap: 12px;
+    font-family: monospace;
+}
+
+body, main {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap) * 2);
+}
+
+button {
+    appearance: none;
+    font-size: inherit;
+    border: 1px solid black;
+    background-color: unset;
+    padding: var(--gap) calc(var(--gap) / 2);
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+article ul, nav ul, aside ul {
+    display: flex;
+    gap: var(--gap);
+    align-items: center;
+    justify-content: center;
+}
+
+.item-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--gap)
+}
+
+.item-details {
+    flex-direction: column;
+}
+
+.page-title-and-action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap);
+}
+
+.meta-info {
+    display: flex;
+    gap: var(--gap);
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: var(--gap);
+    max-width: 750px;
+    align-self: center;
+}
+
+form button {
+    align-self: center;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+}
+
+.form-row label {
+    flex-basis: 250px;
+    text-align: end;
+}
+
+.form-row input, .form-row textarea, .form-row select {
+    flex: 1;
+}
+
+article, aside {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap);
+}

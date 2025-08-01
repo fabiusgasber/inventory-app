@@ -1,21 +1,30 @@
 <%- include("components/head") %>
-<main>
-    <h1><%= title %></h1>
-    <%- include("components/errors.ejs") %>
+<div class="page-title-and-action">
     <a href="/actor">Back to actors</a>
+</div>
+    <%- include("components/errors.ejs") %>
+    <main>
     <form method="post" action="/actor/new">
+        <div class="form-row">
         <label for="firstName">First name:</label>
         <input type="text" placeholder="Enter first name" name="firstName" id="firstName" required>
+        </div>
+        <div class="form-row">
         <label for="lastName">Last name:</label>
         <input type="text" placeholder="Enter last name" name="lastName" id="lastName" required>
+        </div>
+        <div class="form-row">
         <label for="birthdate">Date of birth:</label>
-        <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31" required>
+        <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="<%= new Date().toISOString().slice(0, 10) %>" required>
+        </div>
+        <div class="form-row">
         <label for="country">Country of birth:</label>
         <select name="country" id="country" required>
             <% countries.forEach(country => { %>
                 <option value="<%=country.countryCode %>"><%= country.country %></option>
             <% }) %>
         </select>
+        </div>
         <button type="submit">Submit actor</button>
     </form>
 </main>

@@ -1,26 +1,39 @@
 <%- include("components/head") %>
-    <main>
-        <h1><%= title %></h1>
+<div class="page-title-and-action">
         <a href="/movie">Back to movies</a>
+</div>
         <%- include("components/errors.ejs") %>
+    <main>
         <form method="post" action="/movie/<%= movie.id %>/update">
+        <div class="form-row">
         <label for="title">Movie title:</label>
         <input type="text" name="title" id="title" value="<%= movie.title %>" required>
+        </div>
+        <div class="form-row">
         <label for="length">Movie length (in minutes):</label>
         <input type="number" name="length" id="length" value="<%= movie.length %>"  min="1" max="999" required>
+        </div>
+        <div class="form-row">
         <label for="description">Movie description (min. 10 characters):</label>
         <textarea name="description" id="description" minlength="10" maxlength="1000" rows="5" cols="30" required><%= movie.description %></textarea>
+        </div>
+        <div class="form-row">
         <label for="price">Price (in US $):</label>
         <input type="number" name="price" id="price" value="<%= movie.price %>"  min="1" max="99" step="any" required>
+        </div>
+        <div class="form-row">
         <label for="rating">IMDB rating:</label>
         <input type="number" name="rating" id="rating" value="<%= movie.rating %>"  min="0" max="10" step="any" required>
+        </div>
+        <div class="form-row">
         <label for="quantity">Quantity:</label>
         <input type="number" name="quantity" id="quantity" value="<%= movie.quantity %>"  min="0" max="99" step="any" required>
+        </div>
         <button type="submit">Update movie</button>
         </form>
-    <form method="post" action="/movie/<%= movie.id %>/delete">
+        <form method="post" action="/movie/<%= movie.id %>/delete">
         <button type="submit">Delete</button>
-    </form>
+        </form>
     </main>
 </body>
 </html>

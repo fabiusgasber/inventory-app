@@ -1,21 +1,30 @@
 <%- include("components/head") %>
-<main>
-  <h1><%= title %></h1>
-  <%- include("components/errors.ejs") %>
+<div class="page-title-and-action">
     <a href="/actor">Back to actors</a>
+</div>
+  <%- include("components/errors.ejs") %>
+  <main>
   <form action="/actor/<%= actor.id %>/edit" method="POST">
+    <div class="form-row">
         <label for="firstName">First name: </label>
         <input type="text" value="<%= actor.firstname %>" name="firstName" id="firstName" required>
+    </div>
+    <div class="form-row">
         <label for="lastName">Last name: </label>
         <input type="text" value="<%= actor.lastname %>"  name="lastName" id="lastName" required>
+    </div>
+    <div class="form-row">
         <label for="date">Date of birth: </label>
         <input type="date" value="<%= new Date(actor.birthdate).toISOString().split('T')[0] %>" id="birthdate" name="birthdate" min="1900-01-01" max="2024-12-31" required>
+    </div>
+    <div class="form-row">
         <label for="country">Country of birth: </label>
         <select name="country" id="country" required>
             <% countries.forEach(country => { %>
                 <option value="<%= country.countryCode %>" <%= actor.country === country.countryCode ? "selected" : "" %>><%= country.country %></option>
             <% }) %>
         </select>
+    </div>
     <button type="submit">Update actor</button>
   </form>
       <form method="post" action="/actor/<%= actor.id %>/delete">

@@ -1,21 +1,26 @@
 <%- include("components/head") %>
+<div class="page-title-and-action">
+    <a href="/movie">Back to movies</a>
+</div>
     <main>
-        <a href="/movie">Back to movies</a>
         <article>
-            <h1><%= movie.title %></h1>
-            <img src="#">
-            <ul>
+            <h2><%= movie.title %></h2>
+            <img src="<%= movie.src || '#' %>" alt="Poster of <%= movie.title %>">
+            <ul class="item-details">
                 <li>Genre</li>
-                <li><%= movie.rating %>/10</li>
-                <li><%= movie.price %>$</li>
+                <li class="meta-info">
+                    <span><%= movie.rating %>/10</span>
+                    <span><%= movie.price %>$</span>
+                    <span><%= movie.quantity %> in stock</span>
+                </li>
                 <li><%= movie.description %></li>
-                <li><%= movie.quantity %> in stock</li>
             </ul>
         </article>
         <aside>
-            <h1>Related actors</h1>
+            <h3>Related actors</h3>
             <ul>
             <li>Actor</li>
+            <li>Actor 2</li>
             </ul>
         </aside>
     </main>
