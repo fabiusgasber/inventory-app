@@ -19,8 +19,9 @@ const getGenres = async (req, res) => {
     res.render("genres", { title: "Genres", genres: genres });
 }
 
-const genresCreateGet = (req, res) => {
-    res.render("createGenre", { title: "Add new genre" });
+const genresCreateGet = async (req, res) => {
+    const movies = await db.fetchAllFromTable("movies");
+    res.render("createGenre", { movies });
 };
 
 const genresCreatePost = [
@@ -41,7 +42,9 @@ const genresCreatePost = [
 
 const genresUpdateGet = async (req, res) => {
     const genre  = await db.fetchFromTable("genres", req.params.id);
-    res.render("updateGenre", { title: "Update genre", genre: genre });
+    const movies = await db.fetchAllFromTable("movies");
+    const associatedMovies = await db.fetchGenreMovies(req.params.id);
+    res.render("updateGenre", { title: "Update genre", genre, movies, associatedMovies });
 }
 
 const genresUpdatePost = [
@@ -56,8 +59,8 @@ const genresUpdatePost = [
         errors: errors.array(),
             })
         }
-    const { genre } = req.body;
-    await db.updateGenre(req.params.id, { genre });
+    const { genre, movies } = req.body;
+    await db.updateGenre(req.params.id, { genre, movies });
     res.redirect("/genre");
     }
 ];
@@ -69,7 +72,8 @@ const genresDeletePost = async (req, res) => {
 
 const getGenre = async (req, res) => {
     const genre = await db.fetchFromTable("genres", req.params.id);
-    res.render("genrePage", { genre });
+    const associatedMovies = await db.fetchGenreMovies(req.params.id);
+    res.render("genrePage", { genre, associatedMovies });
 }
 
 

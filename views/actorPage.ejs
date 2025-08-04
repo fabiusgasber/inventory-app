@@ -17,7 +17,9 @@
         <aside>
             <h3>Related movies</h3>
             <ul>
-            <li>Movie 1</li>
+            <% associatedMovies.forEach((movie) => { %>
+                <li><a href="/movie/<%= movie.movie %>"><%= movie.title %></li></a>
+            <% }) %>
             </ul>
         </aside>
     </main>

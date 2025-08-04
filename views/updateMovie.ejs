@@ -29,6 +29,14 @@
         <label for="quantity">Quantity:</label>
         <input type="number" name="quantity" id="quantity" value="<%= movie.quantity %>"  min="0" max="99" step="any" required>
         </div>
+        <div class="form-row">
+        <label for="genre">Associated genre:</label>
+        <select name="genre" id="genre" required>
+            <% genres.forEach(genre => { %>
+                <option value="<%= genre?.id %>" <%= genre?.id === associatedGenre?.genre ? 'selected' : "" %>><%= genre?.genre %></option>
+            <% }) %>
+        </select>
+        </div>
         <button type="submit">Update movie</button>
         </form>
         <form method="post" action="/movie/<%= movie.id %>/delete">

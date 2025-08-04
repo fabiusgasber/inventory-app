@@ -39,7 +39,7 @@ const validateMovie = [
     .withMessage("Movie quantity can not be empty.")
     .isInt({ min: 1, max: 99 })
     .withMessage("Quantity must be a number between 1 and 99."),
-]
+];
 
 const getMovies = async (req, res) => {
     const movies = await db.fetchAllFromTable("movies");
@@ -50,8 +50,9 @@ const getMovies = async (req, res) => {
     res.render("movies", { title: "Movies", movies: movies });
 };
 
-const moviesCreateGet = (req, res) => {
-    res.render("createMovie", { title: "Add new movie"});
+const moviesCreateGet = async (req, res) => {
+    const genres = await db.fetchAllFromTable("genres");
+    res.render("createMovie", { genres });
 };
 
 const moviesCreatePost = [
@@ -72,7 +73,9 @@ const moviesCreatePost = [
 
 const moviesUpdateGet = async (req, res) => {
     const movie = await db.fetchFromTable("movies", req.params.id);
-    res.render("updateMovie", { title: "Update Movie", movie: movie });
+    const genres = await db.fetchAllFromTable("genres");
+    const associatedGenre = await db.fetchMovieGenre(req.params.id);
+    res.render("updateMovie", { title: "Update Movie", movie, genres, associatedGenre });
 }
 
 const moviesUpdatePost = [
@@ -87,8 +90,8 @@ const moviesUpdatePost = [
                 movie: movie
             });
         };
-        const { title, length, description, price, rating, quantity } = req.body;
-        await db.updateMovie(req.params.id, { title, length, description, price, rating, quantity });
+        const { title, length, description, price, rating, quantity, genre } = req.body;
+        await db.updateMovie(req.params.id, { title, length, description, price, rating, quantity, genre });
         res.redirect("/movie");
     }
 ]
@@ -100,7 +103,10 @@ const moviesDeletePost = async (req, res) => {
 
 const getMovie = async (req, res) => {
     const movie = await db.fetchFromTable("movies", req.params.id);
-    res.render("moviePage", { movie: movie });
+    const associatedActors = await db.fetchMovieActors(req.params.id);
+    const genres = await db.fetchAllFromTable("genres");
+    const associatedGenre = await db.fetchMovieGenre(req.params.id);
+    res.render("moviePage", { movie, associatedActors, associatedGenre, genres });
 };
 
 

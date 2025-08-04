@@ -7,9 +7,9 @@
             <h2><%= genre.genre %></h2>
             <img src="#">
             <ul>
-                <li>Movie 1</li>
-                <li>Movie 2</li>
-                <li>Movie 3</li>
+                <% associatedMovies.forEach((movie) => { %>
+                    <li><a href="/movie/<%= movie.movie %>"><%= movie.title %></a></li>
+                <% }) %>
             </ul>
         </article>
     </main>

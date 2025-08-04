@@ -36,13 +36,16 @@ const getActors = async (req, res) => {
     res.render("actors", { title: "Actors", actors: actors });
 };
 
-const actorsCreateGet = (req, res) => {
-    res.render("createActor", { title: "Add new actor", countries: countries});
+const actorsCreateGet = async (req, res) => {
+    const movies = await db.fetchAllFromTable("movies");
+    res.render("createActor", { movies, countries });
 };
 
 const actorsUpdateGet = async (req, res) => {
     const actor = await db.fetchFromTable("actors", req.params.id);
-    res.render("updateActor", { title: "Update actor", actor: actor, countries: countries});
+    const movies = await db.fetchAllFromTable("movies");
+    const associatedMovies = await db.fetchActorMovies(req.params.id);
+    res.render("updateActor", { title: "Update actor", actor, countries, associatedMovies, movies });
 };
 
 const actorsUpdatePost = [
@@ -58,8 +61,8 @@ const actorsUpdatePost = [
         errors: errors.array(),
       });
     }
-    const { firstName, lastName, birthdate, country, src } = req.body;
-    await db.updateActor(req.params.id, { firstName, lastName, birthdate, country, src });
+    const { firstName, lastName, birthdate, country, src, movies } = req.body;
+    await db.updateActor(req.params.id, { firstName, lastName, birthdate, country, src, movies });
     res.redirect("/actor");
     }
 ];
@@ -75,20 +78,22 @@ const actorsCreatePost = [
             errors: errors.array(),
         });
     }
-    const { firstName, lastName, birthdate, country, src } = req.body;
-    await db.addActor({ firstName, lastName, birthdate, country, src });
+    const { firstName, lastName, birthdate, country, src, movies } = req.body;
+    await db.addActor({ firstName, lastName, birthdate, country, movies, src });
     res.redirect("/actor")
   }
 ];
 
 const actorsDeletePost = async (req, res) => {
+    await db.deleteFromTable("inventory", req.params.id, "actor");
     await db.deleteFromTable("actors", req.params.id);
     res.redirect("/actor");
 }
 
 const getActor = async (req, res) => {
     const actor = await db.fetchFromTable("actors", req.params.id);
-    res.render("actorPage", { actor, countries });
+    const associatedMovies = await db.fetchActorMovies(req.params.id);
+    res.render("actorPage", { actor, countries, associatedMovies });
 }
 
 module.exports = {

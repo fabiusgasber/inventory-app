@@ -25,6 +25,14 @@
             <% }) %>
         </select>
         </div>
+        <div class="form-row">
+        <label for="movies">Associated movies:</label>
+        <select name="movies" id="movies" multiple required>
+            <% movies.forEach(movie => { %>
+                <option value="<%= movie.id %>"><%= movie.title %></option>
+            <% }) %>
+        </select>
+        </div>
         <button type="submit">Submit actor</button>
     </form>
 </main>

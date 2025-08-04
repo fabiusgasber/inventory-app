@@ -25,6 +25,16 @@
             <% }) %>
         </select>
     </div>
+        <div class="form-row">
+        <label for="movies">Associated movies:</label>
+        <select name="movies" id="movies" multiple required>
+            <% movies.forEach(movie => { %>
+                <% const isSelected = associatedMovies.some(am => am.movie === movie.id); %>
+                <option value="<%= movie.id %>" <%= isSelected ? "selected" : "" %>><%= movie.title %></option>
+            <% }) %>
+        </select>
+        </div>
+
     <button type="submit">Update actor</button>
   </form>
       <form method="post" action="/actor/<%= actor.id %>/delete">
