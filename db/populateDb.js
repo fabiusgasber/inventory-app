@@ -30,9 +30,12 @@ src VARCHAR(255)
 
 CREATE TABLE IF NOT EXISTS inventory (
 id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-movie INT REFERENCES movies(id),
-actor INT REFERENCES actors(id),
-genre INT REFERENCES genres(id)
+movie INTEGER,
+actor INTEGER,
+genre INTEGER,
+FOREIGN KEY (movie) REFERENCES movies(id) ON DELETE CASCADE,
+FOREIGN KEY (actor) REFERENCES actors(id) ON DELETE CASCADE,
+FOREIGN KEY (genre) REFERENCES genres(id) ON DELETE CASCADE,
 );
 
 INSERT INTO movies (title, length, description, price, rating, quantity)
