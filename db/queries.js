@@ -25,7 +25,7 @@ const addMovie = async ({ title, length, description, price, rating, quantity })
 
 const updateMovie = async (id, { title, length, description, price, rating, quantity, genre }) => {
     await pool.query("UPDATE movies SET title = $2, length = $3, description = $4, price = $5, rating = $6, quantity = $7 WHERE id = $1", [id, title, length, description, price, rating, quantity]);
-    await pool.query("UPDATE inventory SET genre=$1 WHERE movie=$2 RETURNING id", [genre, id]);
+    await pool.query("UPDATE inventory SET genre=$1 WHERE movie=$2", [genre, id]);
     await pool.query("INSERT INTO inventory (genre, movie) SELECT $1, $2 WHERE NOT EXISTS (SELECT * FROM inventory WHERE movie=$2)", [genre, id]);
 }
 
@@ -35,10 +35,14 @@ const addGenre = async({ genre }) => {
 
 const updateGenre = async (id, { genre, movies }) => {
     await pool.query("UPDATE genres SET genre = $2 WHERE id = $1", [id, genre]);
+    const { rows } = await pool.query("SELECT movie FROM inventory WHERE genre = $1", [id])
+    for(const row of rows){
+        await pool.query("UPDATE inventory SET genre = NULL WHERE movie = $1", [row.movie]);
+    }
     if(Array.isArray(movies)){
-    movies.forEach(async (movie) => {
+    for(const movie of movies) {
         await pool.query("UPDATE inventory SET genre = $1 WHERE movie = $2", [id, movie]);
-    });
+    };
     }
     else {
         await pool.query("UPDATE inventory SET genre = $1 WHERE movie = $2", [id, movies]);
