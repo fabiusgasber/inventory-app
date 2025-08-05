@@ -1,7 +1,7 @@
 const pool = require("./pool");
 
 const checkAllowed = (table) => {
-    const allowedTables = ["movies", "genres", "actors"];
+    const allowedTables = ["inventory", "movies", "genres", "actors"];
     if(!allowedTables.includes(table)){
         throw new Error("Invalid table name");
     }
@@ -68,6 +68,9 @@ const updateActor = async (id, { firstName, lastName, birthdate, country, src, m
 
 const deleteFromTable = async (table, id) => {
     checkAllowed(table);
+    await pool.query(`DELETE FROM ${table} WHERE id=$1`, [id]);
+}
+
 const fetchActorMovies = async (id) => {
     const { rows } = await pool.query(`SELECT * FROM movies JOIN inventory ON (movies.id=inventory.movie) WHERE inventory.actor = $1`, [id]);
     return rows;
@@ -98,4 +101,8 @@ module.exports = {
     updateMovie,
     updateGenre,
     updateActor,
+    fetchActorMovies,
+    fetchGenreMovies,
+    fetchMovieActors,
+    fetchMovieGenre
 };
