@@ -19,18 +19,32 @@ const fetchFromTable = async (table, id) => {
     return rows[0];
 }
 
-const addMovie = async ({ title, length, description, price, rating, quantity }) => {
-    await pool.query("INSERT INTO movies (title, length, description, price, rating, quantity) VALUES($1, $2, $3, $4, $5, $6)", [title, length, description, price, rating, quantity])
+const addMovie = async ({ title, length, description, price, rating, quantity, genre, actors}) => {
+    const { rows } = await pool.query("INSERT INTO movies (title, length, description, price, rating, quantity) VALUES($1, $2, $3, $4, $5, $6) RETURNING id", [title, length, description, price, rating, quantity]);
+    const nextActors = Array.isArray(actors) ? actors : [actors];
+    for(const nextActor of nextActors){
+    await pool.query("INSERT INTO inventory (genre, movie, actor) VALUES($1, $2, $3)", [genre, rows[0].id, nextActor]);
+    }
 }
 
-const updateMovie = async (id, { title, length, description, price, rating, quantity, genre }) => {
+const updateMovie = async (id, { title, length, description, price, rating, quantity, genre, actors }) => {
+    const nextActors = Array.isArray(actors) ? actors : [actors];
     await pool.query("UPDATE movies SET title = $2, length = $3, description = $4, price = $5, rating = $6, quantity = $7 WHERE id = $1", [id, title, length, description, price, rating, quantity]);
-    await pool.query("UPDATE inventory SET genre=$1 WHERE movie=$2", [genre, id]);
-    await pool.query("INSERT INTO inventory (genre, movie) SELECT $1, $2 WHERE NOT EXISTS (SELECT * FROM inventory WHERE movie=$2)", [genre, id]);
+    await pool.query("DELETE FROM inventory WHERE movie=$1", [id]);
+    for(const nextActor of nextActors){
+        await pool.query("INSERT INTO inventory (genre, movie, actor) VALUES($1, $2, $3)", [genre, id, nextActor]);
+    }
 }
 
-const addGenre = async({ genre }) => {
-    await pool.query("INSERT INTO genres (genre) VALUES($1)", [genre]);
+const addGenre = async({ genre, movies }) => {
+    const { rows } = await pool.query("INSERT INTO genres (genre) VALUES($1) RETURNING id", [genre]);
+    const nextMovies = Array.isArray(movies) ? movies : [movies];
+    for(const nextMovie of nextMovies){
+        const movie = await fetchFromTable("movies", nextMovie);
+        if(movie){
+        await updateMovie(nextMovie, { title: movie.title, length: movie.length, description: movie.description, price: movie.price, rating: movie.rating, quantity: movie.quantity, genre: rows[0].id });
+        }
+    }
 }
 
 const updateGenre = async (id, { genre, movies }) => {
@@ -44,7 +58,7 @@ const updateGenre = async (id, { genre, movies }) => {
         await pool.query("UPDATE inventory SET genre = $1 WHERE movie = $2", [id, movie]);
     };
     }
-    else {
+    else if(movies){
         await pool.query("UPDATE inventory SET genre = $1 WHERE movie = $2", [id, movies]);
     }
 }

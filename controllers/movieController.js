@@ -52,7 +52,8 @@ const getMovies = async (req, res) => {
 
 const moviesCreateGet = async (req, res) => {
     const genres = await db.fetchAllFromTable("genres");
-    res.render("createMovie", { genres });
+    const actors = await db.fetchAllFromTable("actors");
+    res.render("createMovie", { genres, actors });
 };
 
 const moviesCreatePost = [
@@ -65,8 +66,8 @@ const moviesCreatePost = [
             errors: errors.array(),
         });
     };
-    const { title, length, description, price, rating, quantity } = req.body;
-    await db.addMovie({ title, length, description, price, rating, quantity });
+    const { title, length, description, price, rating, quantity, genre, actors } = req.body;
+    await db.addMovie({ title, length, description, price, rating, quantity, genre, actors });
     res.redirect("/movie");
     }
 ];
@@ -74,8 +75,10 @@ const moviesCreatePost = [
 const moviesUpdateGet = async (req, res) => {
     const movie = await db.fetchFromTable("movies", req.params.id);
     const genres = await db.fetchAllFromTable("genres");
+    const actors = await db.fetchAllFromTable("actors");
     const associatedGenre = await db.fetchMovieGenre(req.params.id);
-    res.render("updateMovie", { title: "Update Movie", movie, genres, associatedGenre });
+    const associatedActors = await db.fetchMovieActors(req.params.id);
+    res.render("updateMovie", { title: "Update Movie", movie, genres, associatedGenre, actors, associatedActors });
 }
 
 const moviesUpdatePost = [
@@ -90,8 +93,8 @@ const moviesUpdatePost = [
                 movie: movie
             });
         };
-        const { title, length, description, price, rating, quantity, genre } = req.body;
-        await db.updateMovie(req.params.id, { title, length, description, price, rating, quantity, genre });
+        const { title, length, description, price, rating, quantity, genre, actors } = req.body;
+        await db.updateMovie(req.params.id, { title, length, description, price, rating, quantity, genre, actors });
         res.redirect("/movie");
     }
 ]

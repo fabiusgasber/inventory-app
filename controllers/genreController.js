@@ -28,14 +28,16 @@ const genresCreatePost = [
     validateGenre,
     async (req, res) => {
         const errors = validationResult(req);
+        const allMovies = await db.fetchAllFromTable("movies");
         if(!errors.isEmpty()){
         return res.status(400).render("createGenre", {
         title: "Create genre",
         errors: errors.array(),
+        movies: allMovies,
       });
         }
-        const { genre } = req.body;
-        await db.addGenre({ genre });
+        const { genre, movies } = req.body;
+        await db.addGenre({ genre, movies });
         res.redirect("/genre");
     }
 ];
