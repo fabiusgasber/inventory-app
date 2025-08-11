@@ -18,10 +18,13 @@
             <% }) %>
         </select>
         </div>
-    <button type="submit">Update genre</button>
+      <div class="form-row">
+          <a href="/genre/<%= genre.id %>">Cancel</a>
+          <button type="submit">Submit</button>
+      </div>
   </form>
   <form method="post" action="/genre/<%= genre.id %>/delete">
-      <button type="submit">Delete</button>
+      <button type="submit" class="delete-btn">Delete</button>
   </form>
   </main>
 </body>

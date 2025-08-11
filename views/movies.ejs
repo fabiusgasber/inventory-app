@@ -6,18 +6,17 @@
         <main class="item-overview">
         <% movies.toSorted((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())).forEach((movie) => { %>
                 <article>
-                <a href="/movie/<%= movie.id %>">
+                <a class="overview-wrapper" href="/movie/<%= movie.id %>">
                     <img src="<%= movie.src %>">
                     <h3><%= movie.title %></h3>
                 </a>
                 <ul>
                     <li><%= movie.rating %>/10</li>
                     <li><%= movie.price %>$</li>
-                    <li><%= movie.quantity %> in stock</li>
                 </ul>
-                <div>
-                    <a href="/movie/<%= movie.id %>/update">Edit</a>
-                </div>
+                <ul>
+                    <li><%= movie.quantity %> available</li>
+                </ul>
             </article>
         <% }) %>
         </main>

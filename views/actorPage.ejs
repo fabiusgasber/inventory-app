@@ -4,7 +4,10 @@
 </div>
         <main>
         <article>
+            <div>
             <h2><%= actor.firstname %> <%= actor.lastname %></h2>
+            <a href="/actor/<%= actor.id %>/edit">Edit</a>
+            </div>
             <ul>
                 <% const country = countries.find(country => country.countryCode === actor.country); %> 
                 <li>
@@ -12,7 +15,7 @@
                     <span>on <%= new Date(actor.birthdate).toISOString().split("T")[0] %></span>
                 </li>
             </ul>
-            <img src="#">
+            <img class="detail-img" src="<%= actor.src %>">
         </article>
         <aside>
             <h3>Related movies</h3>

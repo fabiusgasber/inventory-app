@@ -6,13 +6,10 @@
         <main class="item-overview">
         <% actors.toSorted((a, b) => a.lastname.toLowerCase().localeCompare(b.lastname.toLowerCase())).forEach(actor => { %>
             <article>
-                <a href="/actor/<%= actor.id %>">
+                <a class="overview-wrapper" href="/actor/<%= actor.id %>">
                     <img src="<%= actor.src %>">
                     <h3><%= actor.firstname %> <%= actor.lastname %></h3>
                </a>
-                <div>
-                    <a href="/actor/<%= actor.id %>/edit">Edit</a>
-                </div>
             </article>
         <% }) %>
     </main>

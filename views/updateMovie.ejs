@@ -46,10 +46,13 @@
             <% }) %>
         </select>
         </div>
-        <button type="submit">Update movie</button>
+        <div class="form-row">
+        <a href="/movie/<%= movie.id %>">Cancel</a>
+        <button type="submit">Submit</button>
+        </div>
         </form>
         <form method="post" action="/movie/<%= movie.id %>/delete">
-        <button type="submit">Delete</button>
+        <button type="submit" class="delete-btn">Delete</button>
         </form>
     </main>
 </body>

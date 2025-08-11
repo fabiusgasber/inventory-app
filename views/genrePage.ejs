@@ -4,8 +4,11 @@
     </div>
     <main>
         <article>
+            <div>
             <h2><%= genre.genre %></h2>
-            <img src="#">
+            <a href="/genre/<%= genre.id %>/update">Edit</a>
+            </div>
+            <img id="genre-detail" class="detail-img" src=" <%= genre.src %>">
             <ul>
                 <% associatedMovies.forEach((movie) => { %>
                     <li><a href="/movie/<%= movie.movie %>"><%= movie.title %></a></li>

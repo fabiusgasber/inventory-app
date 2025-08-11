@@ -6,13 +6,10 @@
         <main class="item-overview">
         <% genres.toSorted((a, b) => a.genre.toLowerCase().localeCompare(b.genre)).forEach(genre => { %>
             <article>
-                <a href="/genre/<%= genre.id %>">
-                    <img src="<%= genre.src %>">
+                <a class="overview-wrapper" href="/genre/<%= genre.id %>">
+                    <img id="genre-img" src="<%= genre.src %>">
                     <h3><%= genre.genre %></h3>
                 </a>
-                <div>
-                    <a href="/genre/<%= genre.id %>/update">Edit</a>
-                </div>
             </article>
         <% }) %>
         </main>

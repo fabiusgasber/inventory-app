@@ -34,12 +34,14 @@
             <% }) %>
         </select>
         </div>
-
-    <button type="submit">Update actor</button>
+    <div class="form-row">
+        <a href="/actor/<%= actor.id %>">Cancel</a>
+        <button type="submit">Update actor</button>
+    </div>
   </form>
       <form method="post" action="/actor/<%= actor.id %>/delete">
-      <button type="submit">Delete</button>
-    </form>
+      <button type="submit" class="delete-btn">Delete</button>
+      </form>
 </main>
 </body>
 </html>

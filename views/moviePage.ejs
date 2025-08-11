@@ -4,14 +4,18 @@
 </div>
     <main>
         <article>
+            <div>
             <h2><%= movie.title %></h2>
-            <img src="<%= movie.src || '#' %>" alt="Poster of <%= movie.title %>">
+            <a href="/movie/<%= movie.id %>/update">Edit</a>
+            </div>
+            <span><%= movie.length %> minutes</span>
+            <img class="detail-img" src="<%= movie.src || '#' %>" alt="Poster of <%= movie.title %>">
             <ul class="item-details">
                 <li><a href="/genre/<%= associatedGenre?.genre %>"><%= genres.find(genre => genre?.id === associatedGenre?.genre)?.genre %></a></li>
                 <li class="meta-info">
                     <span><%= movie.rating %>/10</span>
                     <span><%= movie.price %>$</span>
-                    <span><%= movie.quantity %> in stock</span>
+                    <span><%= movie.quantity %> available</span>
                 </li>
                 <li><%= movie.description %></li>
             </ul>
