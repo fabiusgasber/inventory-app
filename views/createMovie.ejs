@@ -39,7 +39,7 @@
         </div>
         <div class="form-row">
         <label for="actors">Associated actors:</label>
-        <select name="actors" id="actors" required multiple>
+        <select name="actors" id="actors" multiple>
             <% actors.forEach(actor => { %>
                 <option value="<%= actor.id %>"><%= actor.firstname %> <%= actor.lastname %></option>
             <% }) %>

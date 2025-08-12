@@ -11,7 +11,7 @@
         </div>
         <div class="form-row">
         <label for="movies">Associated movies:</label>
-        <select name="movies" id="movies" multiple required>
+        <select name="movies" id="movies" multiple>
             <% movies.forEach(movie => { %>
                 <option value="<%= movie.id %>"><%= movie.title %></option>
             <% }) %>
