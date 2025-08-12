@@ -6,8 +6,8 @@ const validateGenre = [
     .trim()
     .notEmpty()
     .withMessage("Genre can not be empty")
-    .isAlpha()
-    .withMessage("Genre must only contain alphabet letters")
+    .isString()
+    .withMessage("Genre must only contain letters")
 ];
 
 const getGenres = async (req, res) => {
@@ -53,12 +53,16 @@ const genresUpdatePost = [
     validateGenre,
     async (req, res) => {
         const selectedGenre = await db.fetchFromTable("genres", req.params.id);
+        const allMovies = await db.fetchAllFromTable("movies");
+        const associatedMovies = await db.fetchGenreMovies(req.params.id);
         const errors = validationResult(req);
         if(!errors.isEmpty()){
         return res.status(400).render("updateGenre", {
         title: "Update genre",
         genre: selectedGenre,
         errors: errors.array(),
+        movies: allMovies,
+        associatedMovies: associatedMovies,
             })
         }
     const { genre, movies } = req.body;

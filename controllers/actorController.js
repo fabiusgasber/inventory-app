@@ -71,11 +71,13 @@ const actorsCreatePost = [
     validateActor,
     async (req, res) => {
     const errors = validationResult(req);
+    const allMovies = await db.fetchAllFromTable("movies");
         if(!errors.isEmpty()){
             return res.status(400).render("createActor", {
             title: "Add new actor",
             countries: countries,
             errors: errors.array(),
+            movies: allMovies,
         });
     }
     const { firstName, lastName, birthdate, country, src, movies } = req.body;

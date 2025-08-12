@@ -60,10 +60,14 @@ const moviesCreatePost = [
     validateMovie,
     async (req, res) => {
     const errors = validationResult(req);
+    const allActors = await db.fetchAllFromTable("actors");
+    const allGenres = await db.fetchAllFromTable("genres");
     if(!errors.isEmpty()){
         return res.status(400).render("createMovie", {
             title: "Create Movie",
             errors: errors.array(),
+            actors: allActors,
+            genres: allGenres
         });
     };
     const { title, length, description, price, rating, quantity, genre, actors } = req.body;

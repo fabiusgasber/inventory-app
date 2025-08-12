@@ -4,18 +4,18 @@
         <a href="/movie/new">Add movie</a>
         </div>
         <main class="item-overview">
-        <% movies.toSorted((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())).forEach((movie) => { %>
+        <% movies?.toSorted((a,b) => a?.title?.toLowerCase()?.localeCompare(b?.title?.toLowerCase()))?.forEach((movie) => { %>
                 <article>
                 <a class="overview-wrapper" href="/movie/<%= movie.id %>">
                     <img src="<%= movie.src %>">
-                    <h3><%= movie.title %></h3>
+                    <h3><%= movie?.title || 'Unknown title' %> </h3>
                 </a>
                 <ul>
-                    <li><%= movie.rating %>/10</li>
-                    <li><%= movie.price %>$</li>
+                    <li><%= movie?.rating || 'Unknown rating' %>/10 </li>
+                    <li><%= movie?.price || 'Unknown price' %>$ </li>
                 </ul>
                 <ul>
-                    <li><%= movie.quantity %> available</li>
+                    <li><%= movie?.quantity || 'Unknown quantity' %> available </li>
                 </ul>
             </article>
         <% }) %>
