@@ -63,7 +63,7 @@ const genresUpdatePost = [
         }
     const { genre, movies } = req.body;
     await db.updateGenre(req.params.id, { genre, movies });
-    res.redirect("/genre");
+    res.redirect(`/genre/${encodeURIComponent(req.params.id)}`);
     }
 ];
 

@@ -95,7 +95,7 @@ const moviesUpdatePost = [
         };
         const { title, length, description, price, rating, quantity, genre, actors } = req.body;
         await db.updateMovie(req.params.id, { title, length, description, price, rating, quantity, genre, actors });
-        res.redirect("/movie");
+        res.redirect(`/movie/${encodeURIComponent(req.params.id)}`);
     }
 ]
 

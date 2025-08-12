@@ -63,7 +63,7 @@ const actorsUpdatePost = [
     }
     const { firstName, lastName, birthdate, country, src, movies } = req.body;
     await db.updateActor(req.params.id, { firstName, lastName, birthdate, country, src, movies });
-    res.redirect("/actor");
+    res.redirect(`/actor/${encodeURIComponent(req.params.id)}`);
     }
 ];
 
