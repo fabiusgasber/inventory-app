@@ -16,5 +16,8 @@
     "express-validator": "^7.2.1",
     "node": "^20.19.4",
     "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
   }
 }
