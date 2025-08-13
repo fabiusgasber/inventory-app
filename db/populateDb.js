@@ -28,15 +28,22 @@ genre VARCHAR(255),
 src VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS inventory (
+CREATE TABLE IF NOT EXISTS movie_genres (
 id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-movie INTEGER,
-actor INTEGER,
-genre INTEGER,
-FOREIGN KEY (movie) REFERENCES movies(id) ON DELETE CASCADE,
-FOREIGN KEY (actor) REFERENCES actors(id) ON DELETE CASCADE,
-FOREIGN KEY (genre) REFERENCES genres(id) ON DELETE CASCADE,
-UNIQUE (movie, actor, genre)
+movieId INTEGER,
+genreId INTEGER,
+FOREIGN KEY (movieId) REFERENCES movies(id) ON DELETE CASCADE,
+FOREIGN KEY (genreId) REFERENCES genres(id) ON DELETE CASCADE,
+UNIQUE (movieId)
+);
+
+CREATE TABLE IF NOT EXISTS movie_actors (
+id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+movieId INTEGER,
+actorId INTEGER,
+FOREIGN KEY (movieId) REFERENCES movies(id) ON DELETE CASCADE,
+FOREIGN KEY (actorId) REFERENCES actors(id) ON DELETE CASCADE,
+UNIQUE (movieId, actorId)
 );
 
 INSERT INTO movies (title, length, description, price, rating, quantity, src)
@@ -76,22 +83,32 @@ VALUES('Comedy', '/genres/comedy.jpg'),
 ('Romance', '/genres/romance.jpg'),
 ('Documentary', '/genres/documentary.jpg');
 
-INSERT INTO inventory (movie, actor, genre)
-VALUES(1, 1, 3),
-(3, 2, 5),
-(5, 9, 4),
-(7, 7, 3),
-(9, 10, 3),
-(10, 1, 8),
-(11, 6, 3),
-(13, 4, 6);
+INSERT INTO movie_actors (movieId, actorId)
+VALUES
+(1, 1),
+(3, 2),
+(5, 9),
+(7, 7),
+(9, 10),
+(10, 1),
+(11, 6),
+(13, 4);
 
-INSERT INTO inventory (movie, genre)
-VALUES(2, 1),
+INSERT INTO movie_genres (movieId, genreId)
+VALUES
+(1, 3),
+(2, 1),
+(3, 5),
 (4, 5),
+(5, 4),
 (6, 4),
+(7, 3),
 (8, 7),
-(12, 3);
+(9, 3),
+(10, 8),
+(11, 3),
+(12, 3),
+(13, 6);
 `;
 
 const main = async () => {
