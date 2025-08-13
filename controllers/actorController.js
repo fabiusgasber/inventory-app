@@ -45,7 +45,7 @@ const actorsUpdateGet = async (req, res) => {
     const actor = await db.fetchFromTable("actors", req.params.id);
     const movies = await db.fetchAllFromTable("movies");
     const associatedMovies = await db.fetchActorMovies(req.params.id);
-    res.render("updateActor", { title: "Update actor", actor, countries, associatedMovies, movies });
+    res.render("updateActor", { actor, countries, associatedMovies, movies });
 };
 
 const actorsUpdatePost = [
@@ -55,14 +55,12 @@ const actorsUpdatePost = [
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).render("updateActor", {
-        title: "Update actor",
         actor: actor,
         countries: countries,
         errors: errors.array(),
       });
     }
-    const { firstName, lastName, birthdate, country, src, movies } = req.body;
-    await db.updateActor(req.params.id, { firstName, lastName, birthdate, country, src, movies });
+    await db.updateActor(req.params.id, req.body);
     res.redirect(`/actor/${encodeURIComponent(req.params.id)}`);
     }
 ];

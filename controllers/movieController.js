@@ -47,7 +47,7 @@ const getMovies = async (req, res) => {
         res.status(404).send("Could not find any movies")
         return;
     }
-    res.render("movies", { title: "Movies", movies: movies });
+    res.render("movies", { title: "Movies", movies });
 };
 
 const moviesCreateGet = async (req, res) => {
@@ -64,14 +64,12 @@ const moviesCreatePost = [
     const allGenres = await db.fetchAllFromTable("genres");
     if(!errors.isEmpty()){
         return res.status(400).render("createMovie", {
-            title: "Create Movie",
             errors: errors.array(),
             actors: allActors,
             genres: allGenres
         });
     };
-    const { title, length, description, price, rating, quantity, genre, actors } = req.body;
-    await db.addMovie({ title, length, description, price, rating, quantity, genre, actors });
+    await db.addMovie(req.body);
     res.redirect("/movie");
     }
 ];
@@ -82,7 +80,7 @@ const moviesUpdateGet = async (req, res) => {
     const actors = await db.fetchAllFromTable("actors");
     const associatedGenre = await db.fetchMovieGenre(req.params.id);
     const associatedActors = await db.fetchMovieActors(req.params.id);
-    res.render("updateMovie", { title: "Update Movie", movie, genres, associatedGenre, actors, associatedActors });
+    res.render("updateMovie", { movie, genres, associatedGenre, actors, associatedActors });
 }
 
 const moviesUpdatePost = [
@@ -92,16 +90,14 @@ const moviesUpdatePost = [
         const errors = validationResult(req);
         if(!errors.isEmpty()){
             return res.status(400).render("updateMovie", {
-                title: "Update Movie",
                 errors: errors.array(),
                 movie: movie
             });
         };
-        const { title, length, description, price, rating, quantity, genre, actors } = req.body;
-        await db.updateMovie(req.params.id, { title, length, description, price, rating, quantity, genre, actors });
+        await db.updateMovie(req.params.id, req.body);
         res.redirect(`/movie/${encodeURIComponent(req.params.id)}`);
     }
-]
+];
 
 const moviesDeletePost = async (req, res) => {
     await db.deleteFromTable("movies", req.params.id);

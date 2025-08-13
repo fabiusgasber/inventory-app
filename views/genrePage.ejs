@@ -11,7 +11,7 @@
             <img id="genre-detail" class="detail-img" src=" <%= genre.src %>">
             <ul>
                 <% associatedMovies.forEach((movie) => { %>
-                    <li><a href="/movie/<%= movie.movie %>"><%= movie.title %></a></li>
+                    <li><a href="/movie/<%= movie.movieid %>"><%= movie.title %></a></li>
                 <% }) %>
             </ul>
         </article>

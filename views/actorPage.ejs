@@ -11,8 +11,8 @@
             <ul>
                 <% const country = countries.find(country => country.countryCode === actor.country); %> 
                 <li>
-                    <span>Born in <%= country?.country || "Unknown" %></span>
-                    <span>on <%= new Date(actor.birthdate).toISOString().split("T")[0] %></span>
+                    <span>Born in <%= country?.country || "unknown country" %></span>
+                    <span>on <%= new Date(actor?.birthdate)?.toISOString()?.split("T")[0] || "unknown date" %></span>
                 </li>
             </ul>
             <img class="detail-img" src="<%= actor.src %>">
@@ -20,8 +20,8 @@
         <aside>
             <h3>Related movies</h3>
             <ul>
-            <% associatedMovies.forEach((movie) => { %>
-                <li><a href="/movie/<%= movie.movie %>"><%= movie.title %></li></a>
+            <% associatedMovies?.forEach((movie) => { %>
+                <li><a href="/movie/<%= movie.movieid %>"><%= movie?.title || "Unknown movie" %></li></a>
             <% }) %>
             </ul>
         </aside>

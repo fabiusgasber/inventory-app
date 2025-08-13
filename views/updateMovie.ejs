@@ -33,7 +33,7 @@
         <label for="genre">Associated genre:</label>
         <select name="genre" id="genre" required>
             <% genres.forEach(genre => { %>
-                <option value="<%= genre?.id %>" <%= genre?.id === associatedGenre?.genre ? 'selected' : "" %>><%= genre?.genre %></option>
+                <option value="<%= genre?.id %>" <%= genre?.id === associatedGenre?.genreid ? 'selected' : "" %>><%= genre?.genre %></option>
             <% }) %>
         </select>
         </div>
@@ -41,8 +41,8 @@
         <label for="actors">Associated actors:</label>
         <select name="actors" id="actors" multiple>
             <% actors.forEach(actor => { %>
-                <% const isSelected = associatedActors?.some(aa => aa.actor === actor.id) %>
-                <option value="<%= actor.id %>" <%= isSelected ? "selected" : "" %>><%= actor.firstname %> <%= actor.lastname %></option>
+                <% const isSelected = associatedActors?.some(aa => aa?.actorid === actor?.id) %>
+                <option value="<%= actor.id %>" <%= isSelected ? "selected" : "" %>><%= actor?.firstname %> <%= actor?.lastname %></option>
             <% }) %>
         </select>
         </div>

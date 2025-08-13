@@ -11,7 +11,7 @@
             <span><%= movie.length %> minutes</span>
             <img class="detail-img" src="<%= movie.src || '#' %>" alt="Poster of <%= movie.title %>">
             <ul class="item-details">
-                <li><a href="/genre/<%= associatedGenre?.genre %>"><%= genres.find(genre => genre?.id === associatedGenre?.genre)?.genre %></a></li>
+                <li><a href="/genre/<%= associatedGenre?.genreid %>"><%= genres.find(genre => genre?.id === associatedGenre?.genreid)?.genre %></a></li>
                 <li class="meta-info">
                     <span><%= movie.rating %>/10</span>
                     <span><%= movie.price %>$</span>
@@ -24,7 +24,7 @@
             <h3>Related actors</h3>
             <ul>
                 <% associatedActors.forEach((actor) => { %>
-                <li><a href="/actor/<%= actor.actor %>"><%= actor.firstname %> <%= actor.lastname %></a></li>
+                <li><a href="/actor/<%= actor.actorid %>"><%= actor.firstname %> <%= actor.lastname %></a></li>
                 <% }) %>
             </ul>
         </aside>
