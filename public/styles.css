@@ -133,6 +133,7 @@ form button {
 }
 
 .form-row input,
+.search-form input,
 .form-row textarea,
 .form-row select {
   border: 2px solid black;
@@ -225,6 +226,17 @@ select[multiple] {
 
 #errors li {
   list-style-type: square;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.search-form input::placeholder {
+  overflow: visible;
 }
 
 @media (max-width: 600px) {

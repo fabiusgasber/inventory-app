@@ -158,6 +158,16 @@ const getMovie = async (req, res) => {
   }
 };
 
+const searchMovies = async (req, res) => {
+  try{
+    const movieSearchResult = req.query.title ? await db.searchMovieTable(req.query.title) : await db.fetchAllFromTable("movies");
+    res.render("movies", { movies: movieSearchResult, title: "Movies" });
+  } catch (err) {
+    console.error("searchMovies: could not search for movie", err);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   getMovies,
   getMovie,
@@ -166,4 +176,5 @@ module.exports = {
   moviesUpdateGet,
   moviesUpdatePost,
   moviesDeletePost,
+  searchMovies,
 };

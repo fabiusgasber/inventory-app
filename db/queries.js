@@ -269,6 +269,16 @@ const fetchMovieGenre = async (id) => {
   }
 };
 
+const searchMovieTable = async (query) => {
+  if(!query) throw new Error("please provide search query");
+  try{
+    const { rows } = await pool.query(`SELECT * FROM movies WHERE LOWER(title) LIKE LOWER($1)`, [`%${query}%`]);
+    return rows;
+  } catch (err) {
+    throw new Error(`searchMovieTable failed: ${err.message}`);
+  }
+}
+
 module.exports = {
   fetchAllFromTable,
   fetchFromTable,
@@ -283,4 +293,5 @@ module.exports = {
   fetchGenreMovies,
   fetchMovieActors,
   fetchMovieGenre,
+  searchMovieTable,
 };

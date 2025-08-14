@@ -9,5 +9,8 @@
 <body>
     <header>
         <a id="logo" href="/"><h1>MovieVault</h1></a>
+                <form method="get" action="/movie/search/" class="search-form">
+                <input type="search" id="movie-search" name="title" placeholder="Search movies by title">
+                </form>
         <%- include("./navbar") %>
     </header>
