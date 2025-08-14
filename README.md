@@ -23,7 +23,7 @@ It fully implements the **CRUD** (Create, Read, Update, Delete) model for all th
 - `genres`
 - `movies`
 - `actors`
-- `movies_genres` (many-to-many relation between movies and genres)
+- `movies_genres` (many-to-one relation between movies and genres)
 - `movies_actors` (many-to-many relation between movies and actors)
 
 ## Features
@@ -36,6 +36,7 @@ It fully implements the **CRUD** (Create, Read, Update, Delete) model for all th
 
 ## Future Improvements
 - Admin password protection for destructive actions
+- Search bar functionality for genre and actors
 - Improved accessibility and responsive design
 
 ## Credits
