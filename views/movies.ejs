@@ -7,7 +7,7 @@
         <% movies?.toSorted((a,b) => a?.title?.toLowerCase()?.localeCompare(b?.title?.toLowerCase()))?.forEach((movie) => { %>
                 <article>
                 <a class="overview-wrapper" href="/movie/<%= movie.id %>">
-                    <img src="<%= movie.src %>">
+                    <img src="<%= movie.src %>" alt="Movie poster">
                     <h3><%= movie?.title || 'Unknown title' %> </h3>
                 </a>
                 <ul>

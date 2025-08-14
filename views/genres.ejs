@@ -7,7 +7,7 @@
         <% genres.toSorted((a, b) => a.genre.toLowerCase().localeCompare(b.genre)).forEach(genre => { %>
             <article>
                 <a class="overview-wrapper" href="/genre/<%= genre.id %>">
-                    <img id="genre-img" src="<%= genre.src %>">
+                    <img id="genre-img" src="<%= genre.src %>" alt="Genre">
                     <h3><%= genre.genre %></h3>
                 </a>
             </article>

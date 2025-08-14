@@ -7,7 +7,7 @@
         <% actors.toSorted((a, b) => a.lastname.toLowerCase().localeCompare(b.lastname.toLowerCase())).forEach(actor => { %>
             <article>
                 <a class="overview-wrapper" href="/actor/<%= actor.id %>">
-                    <img src="<%= actor.src %>">
+                    <img src="<%= actor.src %>" alt="Actor">
                     <h3><%= actor.firstname %> <%= actor.lastname %></h3>
                </a>
             </article>

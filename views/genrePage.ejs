@@ -8,7 +8,7 @@
             <h2><%= genre.genre %></h2>
             <a href="/genre/<%= genre.id %>/update">Edit</a>
             </div>
-            <img id="genre-detail" class="detail-img" src=" <%= genre.src %>">
+            <img id="genre-detail" class="detail-img" src=" <%= genre.src %>" alt="genre">
             <ul>
                 <% associatedMovies.forEach((movie) => { %>
                     <li><a href="/movie/<%= movie.movieid %>"><%= movie.title %></a></li>

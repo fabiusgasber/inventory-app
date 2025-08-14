@@ -15,7 +15,7 @@
                     <span>on <%= new Date(actor?.birthdate)?.toISOString()?.split("T")[0] || "unknown date" %></span>
                 </li>
             </ul>
-            <img class="detail-img" src="<%= actor.src %>">
+            <img class="detail-img" src="<%= actor.src %>" alt="Actor <%= actor.firstname %> <%= actor.lastname %>">
         </article>
         <aside>
             <h3>Related movies</h3>
